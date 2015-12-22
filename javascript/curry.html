@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function test() {
+            console.log(this); // prints the global object
+        }
+
+        test();
+
+        var x = {
+            test: function test() {
+                console.log(this); // prints the global object
+            }
+        };
+
+        x.test(); // x
+
+        var y = {
+            description: 'I am the y object'
+        };
+
+        x.test.call(y); // y
+
+        x.test.apply(y); // y
+
+        var fn = x.test.bind(y);
+        fn();
+        // bind returns a new function bound to the current context
+
+        x.test = function () {
+            console.log('changed the function test ', this);
+        };
+
+        fn();
+
+        fn = x.test.bind(y);
+        fn();
+
+        function sum(x, y) {
+            // currying ....
+            if (arguments.length === 1) return sum.bind(null, x);
+            return x + y;
+        }
+
+        console.log(sum(1, 2)); // 3
+        console.log(sum(1)); // fn
+        var fx = sum(1); // fx, x = 1
+        console.log(fx(4)); //
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function fibonacci_n(n) {
+            // return n fibonacci numbers as an array ...
+            var arr = [0, 1], i = 1;
+            while(arr.length < n + 1) {
+                arr.push(arr[i] + arr[i - 1]);
+                i++;
+            }
+            return arr;
+        }
+
+        /// console.log(fibonacci_n(10));
+
+        /*function fibonacci(n) {
+
+            if (n > 1) return fibonacci(n - 1) + fibonacci(n - 2);
+            else {
+                if (n === 1) return 1;
+                else return 0;
+            }
+        }*/
+
+        // Memoization: Store as a key value pair, the input and output of a function
+        // so that the statements / tasks are not repeated
+
+        function fibonacci(n) {
+            if (!(n in fibonacci.cache)) {
+                console.log('actually calculating the fibonacci ', n);
+                fibonacci.cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
+            }
+            return fibonacci.cache[n];
+        }
+
+        fibonacci.cache = {
+            '0': 0,
+            '1': 1
+        };
+
+
+        console.log(fibonacci(10));
+        console.log(fibonacci.cache);
+
+        console.log(fibonacci(12));
+        // console.log(fibonacci(12));
+
+        // todo: create a function that can memoize any function
+        function memoize(fn) {
+            // return memoized version of fn;
+            return function () {
+
+            }
+        }
+
+        function sum(x, y) {
+            return x + y;
+        }
+
+        var sum_memoized = memoize(sum);
+
+        sum_memoized(1, 2);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
