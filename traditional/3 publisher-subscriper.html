@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        // Publishers, emit
+        // Subscribers on
+
+        function Publisher() {
+
+        }
+
+        Publisher.events = { }; // event_name will be the key and value will be an array of handlers
+
+        Publisher.prototype.on = function (event_name, handler) {
+            Publisher.events[event_name] = Publisher.events[event_name] || [];
+            Publisher.events[event_name].push(handler);
+        };
+
+        Publisher.prototype.emit = function (event_name, data) {
+            Publisher.events[event_name].forEach(function (handler) {
+                handler(data)
+            });
+        };
+
+
+        Publisher.prototype.publish = function (event_name, data) {
+            this.emit(event_name, data);
+        };
+
+        var publisher = new Publisher();
+        /*publisher.emit('custom-event', {
+            data: 'event data'
+        });
+
+        publisher.on('custom-event', function (data) {
+            console.log(data);
+        });*/
+
+        function Subscriber() {
+
+        }
+        Subscriber.prototype.subscribe = function (publisher, event, handler) {
+            publisher.on(event, handler);
+        };
+
+        var subscriber = new Subscriber();
+
+        subscriber.subscribe(publisher, 'custom-click', function (data) {
+            console.log('click event on publisher ... ', data);
+        });
+
+
+
+
+
+    </script>
+</head>
+<body>
+<button>Click on this to fire the click event on the publisher</button>
+<script>
+
+    document.querySelector('button').addEventListener('click', function () {
+        publisher.publish('custom-click', {
+            clientX: 200
+        });
+    });
+
+</script>
+
+</body>
+</html>

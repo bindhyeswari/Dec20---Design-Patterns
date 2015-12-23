@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+
+
+        function CarFactory(make) { // make: 'Audi'
+
+            function Audi() {}
+            function Merc() {}
+            function BMW() {}
+
+            var constructors = {
+                'Audi': Audi,
+                'BMW': BMW,
+                'Merc': Merc
+            };
+
+            console.log(constructors);
+
+            return new constructors[make]();
+
+        }
+
+        var a6 = CarFactory('Audi');
+
+        console.log(a6);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

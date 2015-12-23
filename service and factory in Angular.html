@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="base.css"/>
+    <title>Demo</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script>
+
+        function Car() {
+
+        }
+
+        Car.prototype.type = 'sedan';
+
+        function Audi () {}
+        Audi.prototype = new Car();
+        Audi.prototype.constructor = Audi;
+        Audi.prototype.make = 'Audi';
+
+        /*var a6 = new Audi();
+        console.log(a6.type);*/
+
+
+        angular.module('myApp', []).controller('MyController', function ($scope, car, a6) {
+            $scope.message = 'Hello';
+
+            console.log(a6, a6.type);
+            console.log(car, car.type);
+        }).service('a6', Audi).service('car', Car).factory('a4', function () {
+            return {
+
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        {{message | uppercase}}
+    </div>
+</body>
+</html>

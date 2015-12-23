@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+
+        var o = {
+            name: 'Manali'
+        };
+
+        function watch(obj, prop, handler) {// a very bad way of implementing the observer pattern
+            var old = obj[prop]; // old --> manali
+            setTimeout(function () {
+                // check if there were any changes to the object
+                if (old !== obj[prop]) {
+                    handler(old, obj[prop]);
+                }
+                watch(obj, prop, handler);
+            }, 0);
+        }
+
+        watch(o, 'name', function (oldValue, newValue) {
+            // This handler will be fired whenever the name
+            // changes from an oldValue to a newValue
+
+            console.log('The old name was ', oldValue, ' and the new name is ', newValue);
+        });
+
+        o.name = 'James';
+
+    </script>
+
+</head>
+<body>
+
+    <input type="text">
+
+    <script>
+
+        document.querySelector('input').addEventListener('change', function () {
+            o.name = this.value;
+        });
+
+    </script>
+
+</body>
+</html>
